@@ -2012,14 +2012,18 @@ async function loadCustomers() {
 
   try {
     // /vn/customers/monthly not implemented — fetch summary only
+    // Main call respects month filter (for KPIs, table, lifetime, frequency)
     const custData = await api(API_PREFIX+'/customers/summary?' + qs({year_month: f.year_month, sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group}));
-
-    // Filter out channel accounts if toggle on
     const filtered = exclude ? custData.filter(d => !isChannelAccount(d.customer)) : custData;
 
-    // Derive monthly active counts from summary data as fallback
+    // Separate all-time call for the two trend charts (New vs Returning, Monthly Active)
+    // These charts must always show full history regardless of month filter
+    const allTimeData = await api(API_PREFIX+'/customers/summary?' + qs({sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group}));
+    const filteredAllTime = exclude ? allTimeData.filter(d => !isChannelAccount(d.customer)) : allTimeData;
+
+    // Derive monthly counts from all-time data for the two charts
     const monthlyMap = {};
-    filtered.forEach(d => {
+    filteredAllTime.forEach(d => {
       if(!d.first_purchase) return;
       const months = new Set();
       months.add(d.first_purchase.substring(0,7));
@@ -2033,12 +2037,14 @@ async function loadCustomers() {
 
     window._lastCustData = { customers: filtered, monthly: monthlyData };
 
+    // Scorecards, lifetime, frequency, table — respect month filter
     renderCustomerKpis(filtered);
-    renderNewReturning(monthlyData);
     renderLifetimeBuckets(filtered);
-    renderMonthlyActive(monthlyData);
     renderFrequencyChart(filtered);
     renderCustomerTable(filtered);
+    // These two charts always use all-time data
+    renderNewReturning(monthlyData);
+    renderMonthlyActive(monthlyData);
 
   } catch(e) { console.error(e); }
 }
