@@ -1345,7 +1345,7 @@ function renderChannelTable(data, f, yoyData=[], prevData=[]) {
     if(f.year_month) {
       tVal = channelView === 'channel'
         ? getChannelGroupTarget(f.year_month, d.sales_team)
-        : targets.filter(t => t.year_month===f.year_month && allStoreAliases(d.sales_team).includes(t.sales_team)).reduce((s,t)=>s+t.target,0) || null;
+        : targets.filter(t => t.year_month===f.year_month && (t.sales_team===d.sales_team || allStoreAliases(d.sales_team).includes(t.sales_team))).reduce((s,t)=>s+t.target,0) || null;
     }
     const att = tVal ? (d.total_revenue/tVal*100) : null;
     const barW = att ? Math.min(att,150) : 0;
@@ -1375,7 +1375,7 @@ function renderChannelTable(data, f, yoyData=[], prevData=[]) {
 
     return `<tr>
       <td>${d.sales_team}${chTag}</td>
-      <td class="td-num">${fmtSGD(d.total_net_revenue)}</td>
+      <td class="td-num">${fmtSGD(d.total_revenue)}</td>
       <td class="td-num">${fmt(d.total_qty)}</td>
       <td class="td-num">${fmtPct(d.gross_margin_pct)}</td>
       <td class="td-num" style="color:${momColor};font-weight:600;">${momStr}</td>
