@@ -2011,34 +2011,45 @@ async function loadCustomers() {
     <div class="kpi-card"><div class="kpi-label">Lapsed Customers</div><div class="kpi-value" style="color:var(--muted)">—</div></div>`;
 
   try {
-    // /vn/customers/monthly not implemented — fetch summary only
-    const custData = await api(API_PREFIX+'/customers/summary?' + qs({year_month: f.year_month, sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group}));
+    // Two calls:
+    // 1. Month-filtered — for KPI scorecards and top customers table
+    // 2. All-time — for trend charts (New vs Returning, Monthly Active, Lifetime, Frequency)
+    const [custMonthData, custAllData] = await Promise.all([
+      api(API_PREFIX+'/customers/summary?' + qs({year_month: f.year_month, sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group})),
+      api(API_PREFIX+'/customers/summary?' + qs({sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group})),
+    ]);
 
-    // Filter out channel accounts if toggle on
-    const filtered = exclude ? custData.filter(d => !isChannelAccount(d.customer)) : custData;
+    // Apply channel account exclusion to both
+    const filteredMonth = exclude ? custMonthData.filter(d => !isChannelAccount(d.customer)) : custMonthData;
+    const filteredAll   = exclude ? custAllData.filter(d => !isChannelAccount(d.customer)) : custAllData;
 
-    // Derive monthly active counts from summary data as fallback
+    // Derive monthly trend data from ALL-TIME summary
     const monthlyMap = {};
-    filtered.forEach(d => {
+    filteredAll.forEach(d => {
       if(!d.first_purchase) return;
-      const months = new Set();
-      months.add(d.first_purchase.substring(0,7));
-      if(d.last_purchase) months.add(d.last_purchase.substring(0,7));
-      months.forEach(m => {
-        if(!monthlyMap[m]) monthlyMap[m] = {year_month:m, active_customers:0, new_customers:0, returning_customers:0};
-        monthlyMap[m].active_customers++;
-      });
+      const firstM = d.first_purchase.substring(0,7);
+      const lastM  = d.last_purchase ? d.last_purchase.substring(0,7) : firstM;
+      if(!monthlyMap[firstM]) monthlyMap[firstM] = {year_month:firstM, active_customers:0, new_customers:0, returning_customers:0};
+      monthlyMap[firstM].active_customers++;
+      monthlyMap[firstM].new_customers++;
+      if(d.transactions > 1 && lastM !== firstM) {
+        if(!monthlyMap[lastM]) monthlyMap[lastM] = {year_month:lastM, active_customers:0, new_customers:0, returning_customers:0};
+        monthlyMap[lastM].active_customers++;
+        monthlyMap[lastM].returning_customers++;
+      }
     });
     const monthlyData = Object.values(monthlyMap).sort((a,b)=>a.year_month.localeCompare(b.year_month));
 
-    window._lastCustData = { customers: filtered, monthly: monthlyData };
+    window._lastCustData = { customers: filteredMonth, monthly: monthlyData };
 
-    renderCustomerKpis(filtered);
+    // KPIs + table use month-filtered data
+    renderCustomerKpis(filteredMonth);
+    renderCustomerTable(filteredMonth);
+    // Charts use all-time data
     renderNewReturning(monthlyData);
-    renderLifetimeBuckets(filtered);
+    renderLifetimeBuckets(filteredAll);
     renderMonthlyActive(monthlyData);
-    renderFrequencyChart(filtered);
-    renderCustomerTable(filtered);
+    renderFrequencyChart(filteredAll);
 
   } catch(e) { console.error(e); }
 }
