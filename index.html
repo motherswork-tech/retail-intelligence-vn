@@ -2011,19 +2011,23 @@ async function loadCustomers() {
     <div class="kpi-card"><div class="kpi-label">Lapsed Customers</div><div class="kpi-value" style="color:var(--muted)">—</div></div>`;
 
   try {
-    // Two calls:
-    // 1. Month-filtered — for KPI scorecards and top customers table
-    // 2. All-time — for trend charts (New vs Returning, Monthly Active, Lifetime, Frequency)
-    const [custMonthData, custAllData] = await Promise.all([
-      api(API_PREFIX+'/customers/summary?' + qs({year_month: f.year_month, sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group})),
-      api(API_PREFIX+'/customers/summary?' + qs({sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group})),
-    ]);
+    // Single all-time call — avoids timeout from two parallel heavy BQ queries
+    const custAllData = await api(API_PREFIX+'/customers/summary?' + qs({sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group}));
 
-    // Apply channel account exclusion to both
-    const filteredMonth = exclude ? custMonthData.filter(d => !isChannelAccount(d.customer)) : custMonthData;
-    const filteredAll   = exclude ? custAllData.filter(d => !isChannelAccount(d.customer)) : custAllData;
+    // Apply channel account exclusion
+    const filteredAll = exclude ? custAllData.filter(d => !isChannelAccount(d.customer)) : custAllData;
 
-    // Derive monthly trend data from ALL-TIME summary
+    // For scorecards: filter to customers active in selected month
+    // "Active in month" = had a purchase in that month (first_purchase or last_purchase matches)
+    const filteredMonth = f.year_month
+      ? filteredAll.filter(d => {
+          const fp = d.first_purchase ? d.first_purchase.substring(0,7) : null;
+          const lp = d.last_purchase  ? d.last_purchase.substring(0,7)  : null;
+          return fp === f.year_month || lp === f.year_month;
+        })
+      : filteredAll;
+
+    // Derive monthly trend data from all-time data for charts
     const monthlyMap = {};
     filteredAll.forEach(d => {
       if(!d.first_purchase) return;
@@ -2040,12 +2044,12 @@ async function loadCustomers() {
     });
     const monthlyData = Object.values(monthlyMap).sort((a,b)=>a.year_month.localeCompare(b.year_month));
 
-    window._lastCustData = { customers: filteredMonth, monthly: monthlyData };
+    window._lastCustData = { customers: filteredAll, monthly: monthlyData };
 
-    // KPIs + table use month-filtered data
+    // Scorecards + table use month-scoped subset
     renderCustomerKpis(filteredMonth);
     renderCustomerTable(filteredMonth);
-    // Charts use all-time data
+    // All charts use full all-time data
     renderNewReturning(monthlyData);
     renderLifetimeBuckets(filteredAll);
     renderMonthlyActive(monthlyData);
