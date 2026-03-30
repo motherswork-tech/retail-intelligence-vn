@@ -2011,23 +2011,20 @@ async function loadCustomers() {
     <div class="kpi-card"><div class="kpi-label">Lapsed Customers</div><div class="kpi-value" style="color:var(--muted)">—</div></div>`;
 
   try {
-    // Single all-time call — avoids timeout from two parallel heavy BQ queries
+    // Single all-time call — then derive month-filtered subset client-side
+    // This avoids two simultaneous heavy BQ queries timing out
     const custAllData = await api(API_PREFIX+'/customers/summary?' + qs({sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group}));
 
     // Apply channel account exclusion
     const filteredAll = exclude ? custAllData.filter(d => !isChannelAccount(d.customer)) : custAllData;
 
-    // For scorecards: filter to customers active in selected month
-    // "Active in month" = had a purchase in that month (first_purchase or last_purchase matches)
+    // Derive month-filtered subset client-side for KPIs + table
+    // A customer "belongs" to a month if their last_purchase falls in that month
     const filteredMonth = f.year_month
-      ? filteredAll.filter(d => {
-          const fp = d.first_purchase ? d.first_purchase.substring(0,7) : null;
-          const lp = d.last_purchase  ? d.last_purchase.substring(0,7)  : null;
-          return fp === f.year_month || lp === f.year_month;
-        })
+      ? filteredAll.filter(d => d.last_purchase && d.last_purchase.substring(0,7) === f.year_month)
       : filteredAll;
 
-    // Derive monthly trend data from all-time data for charts
+    // Derive monthly trend data from all-time data
     const monthlyMap = {};
     filteredAll.forEach(d => {
       if(!d.first_purchase) return;
@@ -2044,12 +2041,12 @@ async function loadCustomers() {
     });
     const monthlyData = Object.values(monthlyMap).sort((a,b)=>a.year_month.localeCompare(b.year_month));
 
-    window._lastCustData = { customers: filteredAll, monthly: monthlyData };
+    window._lastCustData = { customers: filteredMonth, monthly: monthlyData };
 
-    // Scorecards + table use month-scoped subset
+    // KPIs + table use month-filtered subset
     renderCustomerKpis(filteredMonth);
     renderCustomerTable(filteredMonth);
-    // All charts use full all-time data
+    // Charts use all-time data
     renderNewReturning(monthlyData);
     renderLifetimeBuckets(filteredAll);
     renderMonthlyActive(monthlyData);
