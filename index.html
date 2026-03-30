@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retail Intelligence — Vietnam</title>
+<title>Retail Intelligence</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -171,7 +171,7 @@ tbody td { padding:12px 16px; font-size:12px; font-family:'IBM Plex Mono',monosp
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="white" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
     </div>
     <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:700;color:#0f1729;margin-bottom:8px;">Retail Intelligence</div>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#94a3b8;margin-bottom:32px;">Motherswork · Vietnam</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#94a3b8;margin-bottom:32px;">Motherswork · Singapore</div>
     <input id="pwInput" type="password" placeholder="Enter password"
       style="width:100%;padding:12px 16px;border:1.5px solid rgba(30,60,120,0.18);border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:14px;color:#0f1729;background:#f4f6f9;outline:none;margin-bottom:12px;text-align:center;letter-spacing:0.1em;"
       onkeydown="if(event.key==='Enter')checkPassword()">
@@ -186,7 +186,7 @@ tbody td { padding:12px 16px; font-size:12px; font-family:'IBM Plex Mono',monosp
 
 <script>
 // Password gate — change 'motherswork2026' to your preferred password
-const DASHBOARD_PASSWORD = 'MWvn2026!';
+const DASHBOARD_PASSWORD = 'MWsg2026!';
 function checkPassword() {
   const input = document.getElementById('pwInput').value;
   if(input === DASHBOARD_PASSWORD) {
@@ -211,7 +211,7 @@ if(sessionStorage.getItem('mw_auth') !== '1') {
     </div>
     <div>
       <div class="logo-name">Retail Intelligence</div>
-      <div class="logo-sub">Motherswork · Vietnam</div>
+      <div class="logo-sub">Motherswork · Singapore</div>
     </div>
   </div>
   <div class="header-status">
@@ -278,8 +278,8 @@ if(sessionStorage.getItem('mw_auth') !== '1') {
       <div style="overflow-x:auto;"><table>
         <thead><tr>
           <th>Month</th>
-          <th class="td-num">Revenue (VND)</th>
-          <th class="td-num">Target (VND)</th>
+          <th class="td-num">Revenue (SGD)</th>
+          <th class="td-num">Target (SGD)</th>
           <th class="td-num">Achievement %</th>
         </tr></thead>
         <tbody id="momTableBody"></tbody>
@@ -301,8 +301,8 @@ if(sessionStorage.getItem('mw_auth') !== '1') {
       <div style="overflow-x:auto;"><table>
         <thead><tr>
           <th id="ovBreakdownColHeader">Channel</th>
-          <th class="td-num">Revenue (VND)</th>
-          <th class="td-num">Target (VND)</th>
+          <th class="td-num">Revenue (SGD)</th>
+          <th class="td-num">Target (SGD)</th>
           <th class="td-num">Achievement %</th>
         </tr></thead>
         <tbody id="overviewBreakdownBody"></tbody>
@@ -499,7 +499,7 @@ if(sessionStorage.getItem('mw_auth') !== '1') {
           <select class="form-input" id="tChannel"><option value="">Select channel...</option></select>
         </div>
         <div class="form-group">
-          <label class="form-label">Target (VND)</label>
+          <label class="form-label">Target (SGD)</label>
           <input class="form-input" id="tAmount" type="number" placeholder="e.g. 150000">
         </div>
         <div class="form-actions">
@@ -514,7 +514,7 @@ if(sessionStorage.getItem('mw_auth') !== '1') {
           <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);" id="targetsCount"></div>
         </div>
         <div style="overflow-x:auto;"><table>
-          <thead><tr><th>Month</th><th>Channel</th><th class="td-num">Target (VND)</th><th>Updated</th><th></th></tr></thead>
+          <thead><tr><th>Month</th><th>Channel</th><th class="td-num">Target (SGD)</th><th>Updated</th><th></th></tr></thead>
           <tbody id="targetsTableBody"></tbody>
         </table></div>
       </div>
@@ -670,7 +670,7 @@ if(sessionStorage.getItem('mw_auth') !== '1') {
         <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text2);line-height:2;">
           <div style="margin-bottom:8px;">
             <span style="background:var(--accent);color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;margin-right:8px;">1</span>
-            Download new sales data <strong>(full days only — do not include current day's sales)</strong> from Odoo and export as CSV. Use the <strong>'Dashboard - Rev'</strong> export template in Odoo.
+            Export the <strong>full month-to-date</strong> sales data from Odoo as CSV. Use the <strong>'Dashboard - Rev'</strong> template. <strong>Always export the complete month — not just new days.</strong>
           </div>
           <div style="margin-bottom:8px;">
             <span style="background:var(--accent);color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;margin-right:8px;">2</span>
@@ -685,8 +685,8 @@ if(sessionStorage.getItem('mw_auth') !== '1') {
             Refresh the dashboard — new month appears in all filters
           </div>
         </div>
-        <div style="margin-top:16px;padding:12px;background:var(--accent-dim);border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2);">
-          ⚠ Duplicate dates are automatically skipped — safe to re-upload the same month.
+        <div style="margin-top:16px;padding:12px;background:#f59e0b22;border:1px solid #f59e0b55;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2);">
+          ⚠ <strong>Each upload replaces all data for that month.</strong> Always upload the full month-to-date export from Odoo — uploading partial data will cause under-reporting.
         </div>
       </div>
 
@@ -720,37 +720,62 @@ if(sessionStorage.getItem('mw_auth') !== '1') {
 
 <script>
 const API = 'https://retail-intelligence-api-kgt3f3f3uq-as.a.run.app';
-const API_PREFIX = '/vn';
 const MN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 // Store → Channel group mapping
 const STORE_TO_CHANNEL = {
-  // ── Offline ──
-  'EPV TEAM':              'Offline',
-  'EPV Estella Place HCM': 'Offline',
-  'VTK TEAM':              'Offline',
-  'VTK VN Takashimaya':    'Offline',
-  'VBF TEAM':              'Offline',
-  'VBF VN Baby Fair':      'Offline',
-  // ── Online ──
-  'Motherswork Vietnam':   'Online',
-  'VNWEB - Website':       'Online',
-  'LAZADA PLATFORM':       'Online',
-  'VNLAZ - Lazada':        'Online',
-  'Lazada':                'Online',
-  'TIKTOK PLATFORM':       'Online',
-  'TikTok MW':             'Online',
-  'TikTok MamaC':          'Online',
-  'VN TikTok':             'Online',
-  'Tiktok':                'Online',
-  'Shopee Mamac':          'Online',
-  'Shopee Motherswork':    'Online',
-  'Shopee Stokke':         'Online',
-  'VNSHP':                 'Online',
-  'Shopee':                'Online',
-  // ── Wholesale ──
-  'Sales':                 'Wholesale',
-  'VAC VN Central Warehouse': 'Wholesale',
+  // ── New Odoo full names (from store dropdown) ──
+  'GWC Motherswork Baby & Kids': 'Offline',
+  'TM3 Motherswork Kids':        'Offline',
+  'TAK Takashimaya':             'Offline',
+  'OCK Orchard Tangs':           'Offline',
+  'VCT VivoCity Tangs':          'Offline',
+  'BBF Baby Fair':               'Offline',
+  'EVT Events':                  'Offline',
+  'HQS Mothers Work Pte Ltd':    'Wholesale',
+  'Sales':                       'Wholesale',
+  'Motherswork SG':              'Online',
+  'SGWEB - Website':             'Online',
+  'SGLAZ - Lazada':              'Online',
+  'SGSHP - Shopee':              'Online',
+  'SGTTK -TikTok':               'Online',
+  'SGAMZ Amazon':                'Online',
+  'SGRMT - REDMART':             'Online',
+  'SGGMT Grab Mart':             'Online',
+  'SGISC - iShopChangi':         'Online',
+  'SGKRI - KrisShop':            'Online',
+  'SGNTU - FairPrice':           'Online',
+  'SGSPM SuperMom':              'Online',
+  'SGSSU -SGSSU':                'Online',
+  // ── New Odoo short codes ──
+  'GWC':                         'Offline',
+  'TM3':                         'Offline',
+  'TAK':                         'Offline',
+  'BBF':                         'Offline',
+  'OCK':                         'Offline',
+  'VCT':                         'Offline',
+  'EVT':                         'Offline',
+  'HQS':                         'Wholesale',
+  'SGWEB':                       'Online',
+  'SGLAZ':                       'Online',
+  'SGSHP':                       'Online',
+  'SGTTK':                       'Online',
+  'SGAMZ':                       'Online',
+  'SGRMT':                       'Online',
+  'SGGMT':                       'Online',
+  'SGISC':                       'Online',
+  'SGKRI':                       'Online',
+  'SGNTU':                       'Online',
+  'SGSPM':                       'Online',
+  'SGSSU':                       'Online',
+  // ── Platform channels derived from Customer field ──
+  'Shopee SG':                   'Online',
+  'Lazada SG':                   'Online',
+  'Amazon SG':                   'Online',
+  'TikTok SG':                   'Online',
+  'iShopChangi SG':              'Online',
+  // ── Null fallback ──
+  'Online':                      'Online',
 };
 
 const CHANNEL_COLORS = {
@@ -763,11 +788,11 @@ let targets = [];
 let aiHistory = [];
 let charts = {};
 let currentTab = 'overview';
-let channelView = 'store';
-let overviewView = 'channel';
+let channelView = 'store'; // 'store' or 'channel'
+let overviewView = 'channel'; // 'channel' or 'store'
 
-const fmt = n => n==null?'—':new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(n);
-const fmtSGD = n => n==null?'—':'₫'+fmt(n);
+const fmt = n => n==null?'—':new Intl.NumberFormat('en-SG',{maximumFractionDigits:0}).format(n);
+const fmtSGD = n => n==null?'—':'S$'+fmt(n);
 const fmtPct = n => n==null?'—': (Math.abs(n) > 999 ? '—' : Math.round(n)+'%');
 const filters = () => {
   const rawStore = document.getElementById('fChannel').value;
@@ -798,59 +823,93 @@ async function apiDelete(path) {
   return r.json();
 }
 
-// Primary BQ value for API filtering
+// Primary BQ value to use for API filtering (the one that actually has data)
+// Based on BQ query: GWC, BBF, TM3, TAK exist as short codes WITH data
+// Full names also exist but short codes are the active Odoo values
 const STORE_PRIMARY = {
-  'EPV Estella Place HCM': 'EPV TEAM',
-  'VTK VN Takashimaya':    'VTK TEAM',
-  'VBF VN Baby Fair':      'VBF TEAM',
-  'VNWEB - Website':       'Motherswork Vietnam',
-  'VAC VN Central Warehouse': 'Sales',
-  'VNLAZ - Lazada':        'VNLAZ - Lazada',
-  'VN TikTok':             'VN TikTok',
-  'VNSHP':                 'VNSHP',
+  'GWC':            'GWC',
+  'GWC Motherswork Baby & Kids': 'GWC',
+  'BBF':            'BBF',
+  'BBF Baby Fair':  'BBF',
+  'TM3':            'TM3',
+  'TM3 Motherswork Kids': 'TM3',
+  'TAK':            'TAK',
+  'TAK Takashimaya':'TAK',
+  'OCK':            'OCK',
+  'OCK Orchard Tangs':'OCK',
+  'VCT':            'VCT',
+  'VCT VivoCity Tangs':'VCT',
+  'EVT':            'EVT',
+  'EVT Events':     'EVT',
+  // Renamed stores — old names resolve to new primary
+  'HQS':                   'Sales',
+  'HQS Mothers Work Pte Ltd': 'Sales',
+  'SGWEB - Website':       'Motherswork SG',
+  'SGWEB':                 'Motherswork SG',
 };
 
+// Returns the single primary BQ sales_team value to use in API calls
 function storePrimary(key) {
   return STORE_PRIMARY[key] || key;
 }
 
-// Maps canonical store → all BQ aliases
+// Maps short code → full name (canonical display name)
 const STORE_ALIASES = {
-  'EPV TEAM':           ['EPV TEAM', 'EPV Estella Place HCM'],
-  'VTK TEAM':           ['VTK TEAM', 'VTK VN Takashimaya'],
-  'VBF TEAM':           ['VBF TEAM', 'VBF VN Baby Fair'],
-  'Motherswork Vietnam':['Motherswork Vietnam', 'VNWEB - Website'],
-  'Sales':              ['Sales', 'VAC VN Central Warehouse'],
-  'Shopee':             ['Shopee', 'Shopee Mamac', 'Shopee Motherswork', 'Shopee Stokke', 'VNSHP'],
-  'Lazada':             ['Lazada', 'LAZADA PLATFORM', 'VNLAZ - Lazada'],
-  'Tiktok':             ['Tiktok', 'TIKTOK PLATFORM', 'TikTok MW', 'TikTok MamaC', 'VN TikTok'],
-  'Shopee Mamac':       ['Shopee Mamac'],
-  'Shopee Motherswork': ['Shopee Motherswork'],
-  'Shopee Stokke':      ['Shopee Stokke'],
-  'LAZADA PLATFORM':    ['LAZADA PLATFORM', 'VNLAZ - Lazada'],
-  'TIKTOK PLATFORM':    ['TIKTOK PLATFORM', 'TikTok MW', 'TikTok MamaC', 'VN TikTok'],
+  'BBF':            ['BBF', 'BBF Baby Fair'],
+  'EVT':            ['EVT', 'EVT Events'],
+  'GWC':            ['GWC', 'GWC Motherswork Baby & Kids'],
+  'HQS':            ['HQS', 'HQS Mothers Work Pte Ltd'],
+  'OCK':            ['OCK', 'OCK Orchard Tangs'],
+  'TAK':            ['TAK', 'TAK Takashimaya'],
+  'TM3':            ['TM3', 'TM3 Motherswork Kids'],
+  'VCT':            ['VCT', 'VCT VivoCity Tangs'],
+  // Renamed stores — old target names → new Odoo names
+  'Motherswork SG': ['Motherswork SG', 'SGWEB - Website', 'SGWEB'],
+  'Sales':          ['Sales', 'HQS Mothers Work Pte Ltd', 'HQS'],
+  'SGLAZ - Lazada': ['SGLAZ - Lazada', 'SGLAZ'],
+  'SGSHP - Shopee': ['SGSHP - Shopee', 'SGSHP'],
+  'SGTTK -TikTok':  ['SGTTK -TikTok', 'SGTTK'],
+  'SGAMZ Amazon':   ['SGAMZ Amazon', 'SGAMZ'],
+  'SGRMT - REDMART':['SGRMT - REDMART', 'SGRMT'],
+  'SGGMT Grab Mart':['SGGMT Grab Mart', 'SGGMT'],
+  'SGISC - iShopChangi':['SGISC - iShopChangi', 'SGISC'],
+  // ── Platform channels derived from Customer field ──
+  'Shopee SG':      ['Shopee SG', 'Shopee Singapore'],
+  'Lazada SG':      ['Lazada SG', 'LAZADA PLATFORM', 'Lazada Platform'],
+  'Amazon SG':      ['Amazon SG', 'Amazon Platform', 'AMAZON ASIA-PACIFIC HOLDINGS PTE LTD'],
+  'TikTok SG':      ['TikTok SG', 'TIKTOK PLATFORM'],
+  'iShopChangi SG': ['iShopChangi SG', 'Ishop Changi Platform'],
 };
-
 // Display label for each canonical key
 const STORE_LABELS = {
-  'EPV TEAM':           'EPV — Estella Place',
-  'VTK TEAM':           'VTK — Takashimaya',
-  'VBF TEAM':           'VBF — Baby Fair',
-  'Motherswork Vietnam':'Motherswork Vietnam (Website)',
-  'Sales':              'Sales (Wholesale)',
-  'Shopee':             'Shopee (All)',
-  'Lazada':             'Lazada (All)',
-  'Tiktok':             'TikTok (All)',
-  'Shopee Mamac':       'Shopee — MamaC',
-  'Shopee Motherswork': 'Shopee — Motherswork',
-  'Shopee Stokke':      'Shopee — Stokke',
-  'LAZADA PLATFORM':    'Lazada Platform',
-  'TIKTOK PLATFORM':    'TikTok Platform',
-  'TikTok MW':          'TikTok — Motherswork',
-  'TikTok MamaC':       'TikTok — MamaC',
-  'VNLAZ - Lazada':     'VNLAZ — Lazada (Legacy)',
-  'VN TikTok':          'VN TikTok (Legacy)',
-  'VNSHP':              'VNSHP — Shopee (Legacy)',
+  'BBF':            'BBF Baby Fair',
+  'EVT':            'EVT Events',
+  'GWC':            'GWC Motherswork Baby & Kids',
+  'HQS':            'HQS Mothers Work Pte Ltd',
+  'OCK':            'OCK Orchard Tangs',
+  'TAK':            'TAK Takashimaya',
+  'TM3':            'TM3 Motherswork Kids',
+  'VCT':            'VCT VivoCity Tangs',
+  'Motherswork SG': 'Motherswork SG (Website)',
+  'Sales':          'Sales (Wholesale)',
+  'SGAMZ Amazon':   'SGAMZ Amazon',
+  'SGGMT Grab Mart':'SGGMT Grab Mart',
+  'SGISC - iShopChangi': 'SGISC - iShopChangi',
+  'SGKRI - KrisShop':    'SGKRI - KrisShop',
+  'SGLAZ - Lazada':      'SGLAZ - Lazada',
+  'SGNTU - FairPrice':   'SGNTU - FairPrice',
+  'SGRMT - REDMART':     'SGRMT - REDMART',
+  'SGSHP - Shopee':      'SGSHP - Shopee',
+  'SGSPM SuperMom':      'SGSPM SuperMom',
+  'SGSSU -SGSSU':        'SGSSU',
+  'SGTTK -TikTok':       'SGTTK - TikTok',
+  'SGWEB - Website':     'SGWEB - Website',
+  // ── Platform channels ──
+  'Shopee SG':      'Shopee Singapore',
+  'Lazada SG':      'Lazada',
+  'Amazon SG':      'Amazon',
+  'TikTok SG':      'TikTok',
+  'iShopChangi SG': 'iShopChangi',
 };
 
 // Returns all BQ values that match a canonical store key
@@ -901,7 +960,7 @@ function destroyChart(id) { if(charts[id]){charts[id].destroy();delete charts[id
 
 async function init() {
   try {
-    meta = await api(API_PREFIX+'/meta');
+    meta = await api('/api/meta');
     document.getElementById('statusLabel').textContent = 'Live · BigQuery';
 
     const fMonth=document.getElementById('fMonth');
@@ -1081,9 +1140,9 @@ async function loadOverview() {
   const f=filters();
   try {
     const [ov,monthly,byChannel]=await Promise.all([
-      api(API_PREFIX+'/overview?'+qs(f)),
-      api(API_PREFIX+'/revenue/monthly?'+qs({sales_team:f.sales_team,brand:f.brand})),
-      api(API_PREFIX+'/revenue/by-channel?'+qs({year_month:f.year_month,sales_team:f.sales_team,brand:f.brand})),
+      api('/api/overview?'+qs(f)),
+      api('/api/revenue/monthly?'+qs({sales_team:f.sales_team,brand:f.brand})),
+      api('/api/revenue/by-channel?'+qs({year_month:f.year_month,sales_team:f.sales_team,brand:f.brand})),
     ]);
 
     // Filter by channel group if selected
@@ -1140,7 +1199,7 @@ async function loadYTD(f) {
   try {
     // Get the year from selected month, default to current year
     const year = f.year_month ? f.year_month.substring(0,4) : new Date().getFullYear().toString();
-    const data = await api(API_PREFIX+'/revenue/monthly?' + qs({sales_team: f.sales_team, brand: f.brand}));
+    const data = await api('/api/revenue/monthly?' + qs({sales_team: f.sales_team, brand: f.brand}));
 
     // Sum all months in the same year up to and including selected month
     const ytdMonths = data.filter(d => {
@@ -1262,9 +1321,9 @@ async function loadChannels() {
   }
   try {
     const [data, prevData, yoyData]=await Promise.all([
-      api(API_PREFIX+'/revenue/by-channel?'+qs({year_month:f.year_month,brand:f.brand})),
-      prevMonth ? api(API_PREFIX+'/revenue/by-channel?'+qs({year_month:prevMonth,brand:f.brand})) : Promise.resolve([]),
-      api(API_PREFIX+'/revenue/yoy?'+qs({brand:f.brand})),
+      api('/api/revenue/by-channel?'+qs({year_month:f.year_month,brand:f.brand})),
+      prevMonth ? api('/api/revenue/by-channel?'+qs({year_month:prevMonth,brand:f.brand})) : Promise.resolve([]),
+      api('/api/revenue/yoy?'+qs({brand:f.brand})),
     ]);
     const displayData = channelView === 'channel' ? aggregateToChannels(data) : data;
     const prevDisplayData = channelView === 'channel' ? aggregateToChannels(prevData) : prevData;
@@ -1345,7 +1404,7 @@ function renderChannelTable(data, f, yoyData=[], prevData=[]) {
     if(f.year_month) {
       tVal = channelView === 'channel'
         ? getChannelGroupTarget(f.year_month, d.sales_team)
-        : targets.filter(t => t.year_month===f.year_month && (t.sales_team===d.sales_team || allStoreAliases(d.sales_team).includes(t.sales_team))).reduce((s,t)=>s+t.target,0) || null;
+        : targets.filter(t => t.year_month===f.year_month && allStoreAliases(d.sales_team).includes(t.sales_team)).reduce((s,t)=>s+t.target,0) || null;
     }
     const att = tVal ? (d.total_revenue/tVal*100) : null;
     const barW = att ? Math.min(att,150) : 0;
@@ -1375,7 +1434,7 @@ function renderChannelTable(data, f, yoyData=[], prevData=[]) {
 
     return `<tr>
       <td>${d.sales_team}${chTag}</td>
-      <td class="td-num">${fmtSGD(d.total_revenue)}</td>
+      <td class="td-num">${fmtSGD(d.total_net_revenue)}</td>
       <td class="td-num">${fmt(d.total_qty)}</td>
       <td class="td-num">${fmtPct(d.gross_margin_pct)}</td>
       <td class="td-num" style="color:${momColor};font-weight:600;">${momStr}</td>
@@ -1391,9 +1450,9 @@ async function loadBrands() {
   const f=filters();
   try {
     const [data, monthly, byChannel] = await Promise.all([
-      api(API_PREFIX+'/revenue/by-brand?'+qs({year_month:f.year_month,sales_team:f.sales_team})),
-      api(API_PREFIX+'/revenue/monthly?'+qs({sales_team:f.sales_team,brand:f.brand})),
-      api(API_PREFIX+'/revenue/by-channel?'+qs({year_month:null,brand:f.brand})), // all months
+      api('/api/revenue/by-brand?'+qs({year_month:f.year_month,sales_team:f.sales_team})),
+      api('/api/revenue/monthly?'+qs({sales_team:f.sales_team,brand:f.brand})),
+      api('/api/revenue/by-channel?'+qs({year_month:null,brand:f.brand})), // all months
     ]);
     renderBrandChart(data.slice(0,15));
     renderBrandMoMChart(f.brand);
@@ -1409,7 +1468,7 @@ async function renderBrandMoMChart(selectedBrand) {
     const channelColors = {'Offline':'#1e5ef5','Online':'#14b8a6','Wholesale':'#f59e0b'};
 
     // Get all store data month by month
-    const allMonthly = await api(API_PREFIX+'/revenue/monthly?'+qs({brand: selectedBrand||''}));
+    const allMonthly = await api('/api/revenue/monthly?'+qs({brand: selectedBrand||''}));
     const last24 = allMonthly.slice(-24);
     const labels = last24.map(d => d.year_month);
 
@@ -1419,7 +1478,7 @@ async function renderBrandMoMChart(selectedBrand) {
       const stores = Object.entries(STORE_TO_CHANNEL).filter(([,v])=>v===ch).map(([k])=>k);
       // Fetch monthly for each store, sum up
       const storeData = await Promise.all(stores.map(s =>
-        api(API_PREFIX+'/revenue/monthly?'+qs({sales_team:s,brand:selectedBrand||''})).catch(()=>[])
+        api('/api/revenue/monthly?'+qs({sales_team:s,brand:selectedBrand||''})).catch(()=>[])
       ));
       // Build month → revenue map
       const monthMap = {};
@@ -1594,8 +1653,8 @@ async function loadProducts() {
 
   try {
     const [data, prevData] = await Promise.all([
-      api(API_PREFIX+'/products/top?' + qs(productParams)),
-      prevMonth ? api(API_PREFIX+'/products/top?' + qs(productParamsPrev)) : Promise.resolve([]),
+      api('/api/products/top?' + qs(productParams)),
+      prevMonth ? api('/api/products/top?' + qs(productParamsPrev)) : Promise.resolve([]),
     ]);
 
     // Populate product name list for autocomplete (only when no product filter active)
@@ -1618,7 +1677,7 @@ async function loadProducts() {
 async function renderProductChannelPie(f, productFilter) {
   destroyChart('productChannelPie');
   try {
-    const data = await api(API_PREFIX+'/revenue/by-channel?' + qs({
+    const data = await api('/api/revenue/by-channel?' + qs({
       year_month: f.year_month,
       brand: f.brand,
       channel_group: f.channel_group
@@ -1668,7 +1727,7 @@ async function renderProductChannelPie(f, productFilter) {
 async function loadProductMomTrend(f, last6Months, topProducts, productFilter) {
   try {
     const monthDataArr = await Promise.all(
-      last6Months.map(m => api(API_PREFIX+'/products/top?' + qs({
+      last6Months.map(m => api('/api/products/top?' + qs({
         year_month: m,
         brand: f.brand,
         sales_team: f.sales_team,
@@ -1818,7 +1877,7 @@ function renderProductTable(data, prevData) {
 async function loadYoy() {
   const f=filters();
   try {
-    const data=await api(API_PREFIX+'/revenue/yoy?'+qs({sales_team:f.sales_team,brand:f.brand}));
+    const data=await api('/api/revenue/yoy?'+qs({sales_team:f.sales_team,brand:f.brand}));
     destroyChart('yoy');
     const ctx=document.getElementById('chartYoy').getContext('2d');
     const byYear={};
@@ -1834,7 +1893,7 @@ async function loadYoy() {
 
 // TARGETS
 async function loadTargets() {
-  try { targets=await api(API_PREFIX+'/targets'); } catch(e){targets=[];}
+  try { targets=await api('/api/targets'); } catch(e){targets=[];}
   renderTargetsTable();
   const el=document.getElementById('targetsCount');
   if(el) el.textContent=targets.length+' saved';
@@ -1862,7 +1921,7 @@ async function saveTarget() {
   if(!month||!channel||isNaN(amount)||amount<=0){msg.className='form-msg error';msg.textContent='Please fill in all fields.';msg.style.display='block';return;}
   if(!/^\d{4}-\d{2}$/.test(month)){msg.className='form-msg error';msg.textContent='Format must be YYYY-MM (e.g. 2026-03)';msg.style.display='block';return;}
   try {
-    await apiPost(API_PREFIX+'/targets',{year_month:month,sales_team:channel,target:amount});
+    await apiPost('/api/targets',{year_month:month,sales_team:channel,target:amount});
     msg.className='form-msg success';msg.textContent=`✓ Saved: ${channel} / ${month} = S$${fmt(amount)}`;msg.style.display='block';
     document.getElementById('tAmount').value='';
     await loadTargets();
@@ -1871,7 +1930,7 @@ async function saveTarget() {
 
 async function deleteTarget(year_month,sales_team) {
   if(!confirm(`Delete target for ${sales_team} / ${year_month}?`)) return;
-  try { await apiDelete(`${API_PREFIX}/targets?year_month=${encodeURIComponent(year_month)}&sales_team=${encodeURIComponent(sales_team)}`); await loadTargets(); }
+  try { await apiDelete(`/api/targets?year_month=${encodeURIComponent(year_month)}&sales_team=${encodeURIComponent(sales_team)}`); await loadTargets(); }
   catch(e){alert('Error deleting.');}
 }
 
@@ -1898,7 +1957,7 @@ async function sendAI() {
   document.getElementById('aiResponseArea').innerHTML=`<div class="ai-response"><div class="ai-response-label">Gemini AI</div><div class="ai-response-text" style="color:var(--muted)">Querying BigQuery and generating insight...</div></div>`;
   const f=filters();
   try {
-    const res=await apiPost(API_PREFIX+'/ask',{question:q,...f});
+    const res=await apiPost('/api/ask',{question:q,...f});
     document.getElementById('aiResponseArea').innerHTML=`<div class="ai-response"><div class="ai-response-label">Gemini AI · ${res.data_rows_used||''} rows</div><div class="ai-response-text">${res.answer}</div></div>`;
     aiHistory.unshift({q,a:res.answer});
     if(aiHistory.length>1){
@@ -2012,8 +2071,8 @@ async function loadCustomers() {
 
   try {
     const [custData, monthlyData] = await Promise.all([
-      api(API_PREFIX+'/customers/summary?' + qs({year_month: f.year_month, sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group})),
-      api(API_PREFIX+'/customers/monthly?' + qs({sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group})),
+      api('/api/customers/summary?' + qs({year_month: f.year_month, sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group})),
+      api('/api/customers/monthly?' + qs({sales_team: f.sales_team, brand: f.brand, channel_group: f.channel_group})),
     ]);
 
     // Filter out channel accounts if toggle on
@@ -2233,11 +2292,11 @@ function renderCustomerTable(data) {
 
 function downloadCSVTemplate() {
   const headers = '"Order Date","Product/Barcode","Brand","Product","Sales Team","Customer","Product/Is Consignment?","Order","Qty Ordered","Product/Cost","Unit Price","Untaxed Total"';
-  const example = '"2026-03-01 09:00:00","8720689012089","AVENT","[8720689012089] AVT BOTTLE","EPV TEAM","Nguyen Thi Lan","false","S04804","2.0","6.67","11.90","23.80"';
+  const example = '"2026-03-01 09:00:00","8720689012089","AVENT","[8720689012089] AVT BOTTLE","GWC","Jane Tan","false","S04804","2.0","6.67","11.90","23.80"';
   const blob = new Blob([headers + '\n' + example], {type:'text/csv'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'odoo_vn_sales_template.csv';
+  a.download = 'odoo_sales_template.csv';
   a.click();
 }
 
@@ -2313,7 +2372,7 @@ async function uploadSalesCSV() {
   try {
     const formData = new FormData();
     formData.append('file', uploadSelectedFile);
-    const r = await fetch(API + API_PREFIX + '/upload/sales-csv', {
+    const r = await fetch(API + '/api/upload/sales-csv', {
       method: 'POST',
       body: formData,
       credentials: 'omit'
