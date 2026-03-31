@@ -665,12 +665,12 @@ if(sessionStorage.getItem('mw_auth') !== '1') {
       <div class="chart-card" style="margin-bottom:20px;">
         <div class="chart-header"><div>
           <div class="chart-title">How it works</div>
-          <div class="chart-sub">Monthly data refresh process</div>
+          <div class="chart-sub">Upload weekly or any date range — duplicates are skipped automatically</div>
         </div></div>
         <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text2);line-height:2;">
           <div style="margin-bottom:8px;">
             <span style="background:var(--accent);color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;margin-right:8px;">1</span>
-            Export the <strong>full month-to-date</strong> sales data from Odoo as CSV. Use the <strong>'Dashboard - Rev'</strong> template. <strong>Always export the complete month — not just new days.</strong>
+            Export sales <strong>weekly or monthly</strong> from Odoo as CSV. Use the <strong>'Dashboard - Rev'</strong> template under Sales Reporting. <strong>Always export the complete day — do not export current day sales to avoid duplicated exports.</strong>
           </div>
           <div style="margin-bottom:8px;">
             <span style="background:var(--accent);color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;margin-right:8px;">2</span>
@@ -682,11 +682,11 @@ if(sessionStorage.getItem('mw_auth') !== '1') {
           </div>
           <div>
             <span style="background:var(--accent);color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;margin-right:8px;">4</span>
-            Refresh the dashboard — new month appears in all filters
+            Refresh the dashboard — new sales appears in all filters
           </div>
         </div>
         <div style="margin-top:16px;padding:12px;background:#f59e0b22;border:1px solid #f59e0b55;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text2);">
-          ⚠ <strong>Each upload replaces all data for that month.</strong> Always upload the full month-to-date export from Odoo — uploading partial data will cause under-reporting.
+          ⚠ This upload deduplicates on <strong>Order Date + Product/Barcode + Order + Untaxed Total</strong>. However, please do your best in uploading only up to previous day's sales to avoid any complications.
         </div>
       </div>
 
