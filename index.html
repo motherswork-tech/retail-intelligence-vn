@@ -42,7 +42,10 @@ header {
 .logo-icon svg { width:16px; height:16px; }
 .logo-name { font-size:15px; font-weight:700; letter-spacing:0.04em; }
 .logo-sub { font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:0.1em; margin-top:1px; }
-.header-status { display:flex; align-items:center; gap:8px; }
+.header-status { display:flex; align-items:center; gap:16px; }
+.data-asof { display:flex; align-items:center; gap:6px; }
+.data-asof-label { font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; }
+.data-asof-value { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--text2); font-weight:500; background:var(--surface2); border:1px solid var(--border2); border-radius:4px; padding:2px 8px; }
 .dot { width:7px; height:7px; border-radius:50%; background:var(--success); box-shadow:0 0 8px var(--success); animation:blink 2.5s ease infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 .status-label { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); }
@@ -215,8 +218,14 @@ if(sessionStorage.getItem('mw_auth') !== '1') {
     </div>
   </div>
   <div class="header-status">
-    <div class="dot"></div>
-    <span class="status-label" id="statusLabel">Connecting...</span>
+    <div class="data-asof">
+      <span class="data-asof-label">Data as of</span>
+      <span class="data-asof-value" id="dataAsOf">—</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="dot"></div>
+      <span class="status-label" id="statusLabel">Connecting...</span>
+    </div>
   </div>
 </header>
 
@@ -903,6 +912,11 @@ async function init() {
   try {
     meta = await api(API_PREFIX+'/meta');
     document.getElementById('statusLabel').textContent = 'Live · BigQuery';
+
+    if (meta.max_order_date) {
+      const d = new Date(meta.max_order_date + 'T00:00:00');
+      document.getElementById('dataAsOf').textContent = d.toLocaleDateString('en-SG', {day:'numeric',month:'short',year:'numeric'});
+    }
 
     const fMonth=document.getElementById('fMonth');
     meta.months.forEach(m=>{const o=document.createElement('option');o.value=m;o.textContent=m;fMonth.appendChild(o);});
